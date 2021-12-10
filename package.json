@@ -1,0 +1,30 @@
+{
+  "name": "mern-crm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index",
+    "start": "NODE_ENV=production node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AI-gregking/mern-crm.git"
+  },
+  "author": "AI-gregking",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AI-gregking/mern-crm/issues"
+  },
+  "homepage": "https://github.com/AI-gregking/mern-crm#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.1.1",
+    "morgan": "^1.10.0",
+    "node-geocoder": "^3.28.0",
+    "nodemon": "^2.0.15",
+    "slugify": "^1.6.3"
+  }
+}
