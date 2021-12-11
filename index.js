@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
 const customers = require('./routes/customers');
+const projects = require('./routes/projects');
+const auth = require('./routes/auth');
 
 // Load environment variables
 dotenv.config({ path: './config/config.env' });
@@ -25,6 +27,8 @@ if(process.env.NODE_ENV === 'development') {
 
 // Mount routers
 app.use('/api/v1/customers', customers);
+app.use('/api/v1/projects', projects);
+app.use('/api/v1/auth', auth);
 
 // Use error handling middleware
 app.use(errorHandler);
