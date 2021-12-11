@@ -12,10 +12,12 @@ const advancedResults = require('../middleware/advancedResults');
 
 const router = express.Router({ mergeParams: true });
 
-router.route("/").get(advancedResults(Project, {
+const { protect } = require('../middleware/auth');
+
+router.route("/").get(protect, advancedResults(Project, {
   path: 'customer',
   select: 'name status'
-}), getProjects).post(createProject);
-router.route("/:id").get(getProject).put(updateProject).delete(deleteProject);
+}), getProjects).post(protect, createProject);
+router.route("/:id").get(protect, getProject).put(protect, updateProject).delete(protect, deleteProject);
 
 module.exports = router;

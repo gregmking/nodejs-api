@@ -32,7 +32,7 @@ const ProjectSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "Customer",
     required: true,
-  },
+  }
 });
 
 // Create customer slug from name

@@ -19,12 +19,14 @@ const router = express.Router();
 // Re-route into other resource routers
 router.use('/:customerId/projects', projectRouter);
 
-router.route("/").get(advancedResults(Customer, 'projects'), getCustomers).post(createCustomer);
-router.route('/radius/:zipcode/:distance').get(getCustomersInRadius);
+const { protect } = require('../middleware/auth');
+
+router.route("/").get(protect, advancedResults(Customer, 'projects'), getCustomers).post(protect, createCustomer);
+router.route('/radius/:zipcode/:distance').get(protect, getCustomersInRadius);
 router
   .route("/:id")
-  .get(getCustomer)
-  .put(updateCustomer)
-  .delete(deleteCustomer);
+  .get(protect, getCustomer)
+  .put(protect, updateCustomer)
+  .delete(protect, deleteCustomer);
 
 module.exports = router;
