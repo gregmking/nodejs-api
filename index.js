@@ -8,6 +8,12 @@ const connectDB = require('./config/db');
 const customers = require('./routes/customers');
 const projects = require('./routes/projects');
 const auth = require('./routes/auth');
+const users = require('./routes/users');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const expressRateLimit = require('express-rate-limit');
+const hpp = require('hpp');
 
 // Load environment variables
 dotenv.config({ path: './config/config.env' });
@@ -29,10 +35,31 @@ if(process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
+// Sanitize data
+app.use(mongoSanitize());
+
+// Set security headers
+app.use(helmet());
+
+// Prevent XSS attacks
+app.use(xss());
+
+// Rate limiting
+const limiter = expressRateLimit({
+    windowMs: 30 * 60 * 1000, // 30 mins
+    max: 100
+});
+
+app.use(limiter);
+
+// Prevent http param pollution
+app.use(hpp());
+
 // Mount routers
 app.use('/api/v1/customers', customers);
 app.use('/api/v1/projects', projects);
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/users', users);
 
 // Use error handling middleware
 app.use(errorHandler);
